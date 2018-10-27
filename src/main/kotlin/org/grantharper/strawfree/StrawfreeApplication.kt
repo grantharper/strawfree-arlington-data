@@ -5,6 +5,9 @@ import org.slf4j.LoggerFactory
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
+import org.apache.commons.csv.CSVFormat
+import java.io.FileReader
+
 
 @SpringBootApplication
 class StrawfreeApplication: CommandLineRunner {
@@ -14,6 +17,13 @@ class StrawfreeApplication: CommandLineRunner {
 
     override fun run(vararg args: String?) {
         logger.info("Kotlin command line running")
+        val inputFile = FileReader("input.csv")
+        val records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(inputFile)
+        for (record in records) {
+            val name = record.get("Name")
+            val starCount = record.get("Star Count")
+            logger.info("name=${name}, starCount=${starCount}")
+        }
 
     }
 }
