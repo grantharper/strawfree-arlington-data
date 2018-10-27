@@ -46,5 +46,9 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.apache.commons:commons-csv:1.6")
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.9.7'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.9.7'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.7'
+
     testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
