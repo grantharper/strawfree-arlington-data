@@ -1,12 +1,12 @@
 package org.grantharper.strawfree
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.apache.commons.csv.CSVFormat
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import org.apache.commons.csv.CSVFormat
 import java.io.FileReader
 import java.io.FileWriter
 
@@ -18,6 +18,7 @@ class StrawfreeApplication: CommandLineRunner {
     val inputFilename = "input.csv"
     val nameHeader = "Name"
     val starCountHeader = "Star Count"
+    val addressHeader = "Address"
 
     override fun run(vararg args: String?) {
         logger.info("Kotlin app running")
@@ -28,7 +29,9 @@ class StrawfreeApplication: CommandLineRunner {
 
         val inputFile = FileReader(inputFilename)
         val records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(inputFile)
-        return records.map { csvRecord -> StrawfreeInput(csvRecord.get(nameHeader).trim(), csvRecord.get(starCountHeader).trim().toInt()) }
+        return records.map { csvRecord -> StrawfreeInput(csvRecord.get(nameHeader).trim(),
+                csvRecord.get(starCountHeader).trim().toInt(),
+                csvRecord.get(addressHeader).trim()) }
                 .toList()
     }
 
@@ -45,7 +48,7 @@ class StrawfreeApplication: CommandLineRunner {
 
 }
 
-data class StrawfreeInput(val name: String, val starCount: Int)
+data class StrawfreeInput(val name: String, val starCount: Int, val address: String)
 
 fun main(args: Array<String>) {
     runApplication<StrawfreeApplication>(*args)
