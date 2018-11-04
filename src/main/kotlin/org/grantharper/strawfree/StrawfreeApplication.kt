@@ -25,7 +25,7 @@ class StrawfreeApplication: CommandLineRunner {
         writeJson(processCsv())
     }
 
-    private fun processCsv(): List<StrawfreeInput> {
+    fun processCsv(): List<StrawfreeInput> {
 
         val inputFile = FileReader(inputFilename)
         val records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(inputFile)
@@ -35,7 +35,7 @@ class StrawfreeApplication: CommandLineRunner {
                 .toList()
     }
 
-    private fun writeJson(strawfreeInputList: List<StrawfreeInput>) {
+    fun writeJson(strawfreeInputList: List<StrawfreeInput>) {
         logger.info(strawfreeInputList.toString())
         val outputFilename = "output.json"
         val objectMapper = ObjectMapper()
@@ -44,6 +44,11 @@ class StrawfreeApplication: CommandLineRunner {
         val outputFile = FileWriter(outputFilename)
         outputFile.write(json)
         outputFile.close()
+    }
+
+    fun callMapsAPI(address: String): Pair<Double, Double> {
+
+        return Pair(0.0, 0.0)
     }
 
 }
